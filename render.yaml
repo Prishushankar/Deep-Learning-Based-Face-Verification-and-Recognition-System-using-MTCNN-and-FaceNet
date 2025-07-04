@@ -12,10 +12,7 @@ services:
       ls -la /opt/render/project/src/.venv/bin/python* 2>/dev/null || echo "No venv Python found yet" &&
       chmod +x build.sh && 
       ./build.sh
-    startCommand: |
-      echo "Starting Face Comparison API..." &&
-      echo "Python version at startup: $(python --version)" &&
-      uvicorn main:app --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     rootDir: backend
     envVars:
       - key: ALLOWED_ORIGINS
