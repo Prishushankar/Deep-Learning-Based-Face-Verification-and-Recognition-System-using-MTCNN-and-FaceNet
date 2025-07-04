@@ -1,23 +1,26 @@
-# PowerShell script to update GitHub with minimal Python deployment
+# PowerShell script to update GitHub with FIXED Python 3.9 deployment
 
-Write-Host "Updating GitHub with simplified Python deployment..." -ForegroundColor Cyan
-
-# Rename simplified files to be the main ones used for deployment
-Copy-Item -Path ".\backend\main_simple.py" -Destination ".\backend\main.py" -Force
-Copy-Item -Path ".\backend\url_simple.py" -Destination ".\backend\url.py" -Force
-Copy-Item -Path ".\backend\requirements-minimal.txt" -Destination ".\backend\requirements.txt" -Force
+Write-Host "Updating GitHub with PYTHON 3.9 FORCED deployment..." -ForegroundColor Cyan
+Write-Host "This MUST use Python 3.9.18, NOT 3.13!" -ForegroundColor Red
 
 # Add all files
 git add .
 
 # Commit
-git commit -m "Switch to simplified Python implementation for Render deployment"
+git commit -m "Force Python 3.9.18 for Render deployment - full ML model"
 
 # Push to GitHub
 git push origin master
 
-Write-Host "Simplified deployment configuration pushed to GitHub!" -ForegroundColor Green
-Write-Host "Now in Render dashboard:" -ForegroundColor Yellow
-Write-Host "1. Go to your service" -ForegroundColor Yellow
-Write-Host "2. Deploy the latest commit" -ForegroundColor Yellow
-Write-Host "3. Once deployed successfully, you can incrementally add back the ML dependencies" -ForegroundColor Yellow
+Write-Host "Python 3.9 deployment configuration pushed to GitHub!" -ForegroundColor Green
+Write-Host ""
+Write-Host "CRITICAL RENDER SETUP INSTRUCTIONS:" -ForegroundColor Red
+Write-Host "1. DELETE any existing Render service" -ForegroundColor Yellow
+Write-Host "2. Create NEW service with these settings:" -ForegroundColor Yellow
+Write-Host "   - Python Version: 3.9.18 (NOT 3.13!)" -ForegroundColor White
+Write-Host "   - Root Directory: backend" -ForegroundColor White
+Write-Host "   - Build Command: chmod +x build.sh && ./build.sh" -ForegroundColor White
+Write-Host "   - Start Command: uvicorn main:app --host 0.0.0.0 --port `$PORT" -ForegroundColor White
+Write-Host "3. If you see Python 3.13 in logs, STOP and fix settings" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "Your full face recognition model will work once Python 3.9 is used!" -ForegroundColor Green

@@ -1,14 +1,33 @@
 services:
-  # A Python web service with a simpler deployment approach
+  # Face Comparison API with ML dependencies - REQUIRES Python 3.9.18
   - type: web
     name: face-comparison-api
     runtime: python
-    buildCommand: pip install -r requirements-minimal.txt && pip install -r requirements-simple.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    # CRITICAL: Must be Python 3.9.18 for TensorFlow compatibility
+    pythonVersion: "3.9.18"
+    buildCommand: |
+      echo "Render Environment Info:" &&
+      echo "Python runtime setting: $PYTHON_VERSION" &&
+      echo "Available Python versions:" &&
+      ls -la /opt/render/project/src/.venv/bin/python* 2>/dev/null || echo "No venv Python found yet" &&
+      chmod +x build.sh && 
+      ./build.sh
+    startCommand: |
+      echo "Starting Face Comparison API..." &&
+      echo "Python version at startup: $(python --version)" &&
+      uvicorn main:app --host 0.0.0.0 --port $PORT
     rootDir: backend
     envVars:
       - key: ALLOWED_ORIGINS
-        value: https://face-comparison-frontend.vercel.app,http://localhost:5173,http://localhost:3000
+        value: "*"
       - key: PYTHONUNBUFFERED
         value: "1"
-    plan: free # Use the free plan for testing, switch to starter for production
+      - key: PYTHON_VERSION
+        value: "3.9.18"
+      - key: PIP_NO_CACHE_DIR
+        value: "1"
+      - key: PYTHONDONTWRITEBYTECODE
+        value: "1"
+    plan: free
+    # Force specific region for better Python version control
+    region: oregon

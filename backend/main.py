@@ -2,15 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
 import os
-
-# Try to import the full implementation, fall back to simplified if dependencies are missing
-try:
-    from url import compare_faces_from_urls
-    print("Using full face comparison implementation")
-except ImportError:
-    from url_simple import compare_faces_from_urls
-    print("Using simplified face comparison implementation")
-
+from url import compare_faces_from_urls
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(

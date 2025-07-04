@@ -1,33 +1,37 @@
-# Render Deployment Guide for Face Comparison API
+# Render Deployment Guide for Face Recognition API - PYTHON 3.9 REQUIRED
 
-This guide provides detailed steps for deploying the Face Comparison API backend on Render.com.
+## ⚠️ CRITICAL: Manual Setup Required
 
-## Prerequisites
+Render may not be respecting the render.yaml file. Please follow these EXACT steps:
 
-- GitHub repository with your code (https://github.com/Prishushankar/faceRecognition.git)
-- A Render account (Sign up at https://render.com if you don't have one)
+### Step 1: Delete Existing Service (if any)
+- Go to your Render dashboard
+- Delete any existing face-comparison-api service
 
-## Deployment Steps
+### Step 2: Create New Web Service Manually
+1. Click "New +" → "Web Service"
+2. Connect to GitHub repository: `Prishushankar/faceRecognition`
+3. Configure EXACTLY as follows:
 
-### 1. Sign in to Render
+**Basic Settings:**
+- Name: `face-comparison-api`
+- Root Directory: `backend`
+- Runtime: `Python 3`
+- Python Version: `3.9.18` (CRITICAL - NOT 3.13!)
 
-- Go to https://render.com
-- Sign in with GitHub for easiest setup
+**Build & Deploy:**
+- Build Command: `chmod +x build.sh && ./build.sh`
+- Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
 
-### 2. Create a New Web Service
+**Environment Variables:**
+- `ALLOWED_ORIGINS` = `*`
+- `PYTHONUNBUFFERED` = `1`
+- `PYTHON_VERSION` = `3.9.18`
 
-- Click the "New +" button in the dashboard
-- Select "Web Service"
-- Connect to your GitHub repository
-  - Select "Prishushankar/faceRecognition" repository
-
-### 3. Configure the Web Service
-
-Use these settings:
-
-- **Name**: face-comparison-api
-- **Root Directory**: backend
-- **Runtime**: Python 3
+### Step 3: Deploy
+- Click "Create Web Service"
+- Monitor the build logs carefully
+- If you see "Python 3.13" anywhere in logs, STOP and check settings
 - **Build Command**: bash build.sh
 - **Start Command**: uvicorn main:app --host 0.0.0.0 --port $PORT
 - **Instance Type**: Free (for testing) or Basic (for production)
