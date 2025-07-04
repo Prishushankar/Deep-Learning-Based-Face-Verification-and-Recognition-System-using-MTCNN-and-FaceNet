@@ -1,0 +1,30 @@
+{
+  "name": "face-recognition-app",
+  "version": "1.0.0",
+  "description": "A web application that compares face images and determines if they are of the same person",
+  "scripts": {
+    "install:backend": "cd backend && pip install -r requirements.txt",
+    "install:frontend": "cd frontend && npm install",
+    "install": "npm run install:backend && npm run install:frontend",
+    "start:backend": "cd backend && uvicorn main:app --reload --host 0.0.0.0 --port 8001",
+    "start:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "deploy:github": "powershell -File .\\deploy_to_github.ps1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Prishushankar/faceRecognition.git"
+  },
+  "keywords": [
+    "face-recognition",
+    "deepface",
+    "fastapi",
+    "react"
+  ],
+  "author": "Priyanshu Shankar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Prishushankar/faceRecognition/issues"
+  },
+  "homepage": "https://github.com/Prishushankar/faceRecognition#readme"
+}
