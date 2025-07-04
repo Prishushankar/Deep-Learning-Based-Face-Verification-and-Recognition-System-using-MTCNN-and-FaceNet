@@ -1,0 +1,12 @@
+fastapi
+pydantic
+uvicorn
+requests
+numpy
+opencv-python-headless
+deepface
+scipy
+pandas
+mtcnn
+scikit-learn
+tensorflow

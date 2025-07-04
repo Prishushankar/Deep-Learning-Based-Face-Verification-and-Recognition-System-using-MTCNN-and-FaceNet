@@ -6,7 +6,7 @@ Write-Host "Updating GitHub with Render deployment fixes..." -ForegroundColor Cy
 git add .
 
 # Commit
-git commit -m "Fix Pillow installation and dependencies for Render deployment"
+git commit -m "Fix setuptools.build_meta import error for Render deployment"
 
 # Push to GitHub
 git push origin master

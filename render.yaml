@@ -10,4 +10,6 @@ services:
     envVars:
       - key: ALLOWED_ORIGINS
         value: https://face-comparison-frontend.vercel.app,http://localhost:5173,http://localhost:3000
+      - key: PYTHONUNBUFFERED
+        value: "1"
     plan: free # Use the free plan for testing, switch to starter for production

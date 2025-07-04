@@ -1,0 +1,2 @@
+# Development requirements - use this for local development only
+-r requirements-simple.txt

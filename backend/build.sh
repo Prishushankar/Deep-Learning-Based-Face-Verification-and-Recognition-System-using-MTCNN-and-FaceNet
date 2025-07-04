@@ -15,17 +15,21 @@ if [ -f apt.txt ]; then
   apt-get install -y $(cat apt.txt)
 fi
 
-# Upgrade pip
-echo "Upgrading pip..."
-pip install --upgrade pip
+# Upgrade pip and setuptools
+echo "Upgrading pip and setuptools..."
+pip install --upgrade pip setuptools wheel
 
-# Try binary wheels first
-echo "Installing Python packages with wheels..."
-pip install --only-binary=:all: -r requirements.txt || true
+# Install core dependencies individually to avoid build issues
+echo "Installing core dependencies..."
+pip install fastapi==0.104.1
+pip install pydantic==2.5.0
+pip install uvicorn==0.24.0
+pip install requests==2.31.0
+pip install numpy==1.24.3
 
-# If that failed, try again with regular install
-echo "Installing any remaining packages..."
-pip install --no-cache-dir -r requirements.txt
+# Install remaining packages from simplified requirements
+echo "Installing remaining dependencies..."
+pip install -r requirements-simple.txt
 
 # Print Python and pip versions for debugging
 echo "Python version:"
