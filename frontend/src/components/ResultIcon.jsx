@@ -1,7 +1,6 @@
 import React from "react";
 
 const ResultIcon = ({ matched }) => {
-  console.log("ResultIcon received matched:", matched);
   return matched ? (
     <div className="flex flex-col items-center mt-4">
       <div className="flex items-center justify-center w-12 h-12 bg-green-100 rounded-full shadow-lg mb-2">

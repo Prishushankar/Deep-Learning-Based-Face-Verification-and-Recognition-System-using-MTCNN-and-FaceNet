@@ -94,9 +94,13 @@ def compare(request: CompareRequest):
     print(f"Final matrix: {results}")
     print(f"Distance matrix: {distances}")
     
+    # Get the threshold from the comparison function (consistent across all comparisons)
+    threshold = 0.25  # This matches the threshold used in url.py
+    
     response = {
         "matrix": results, 
-        "distances": distances
+        "distances": distances,
+        "threshold": threshold
     }
     
     # Include errors if any occurred
