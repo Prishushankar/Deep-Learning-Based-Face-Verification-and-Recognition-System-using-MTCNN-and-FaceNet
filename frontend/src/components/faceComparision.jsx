@@ -30,18 +30,30 @@ export default function FaceComparisonPage() {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // Try to get error message from backend
+        let errorMsg = `HTTP error! status: ${response.status}`;
+        try {
+          const errorData = await response.json();
+          if (errorData && errorData.error) {
+            errorMsg = errorData.error;
+          }
+        } catch (e) {}
+        throw new Error(errorMsg);
       }
 
       const backendResponse = await response.json();
       console.log('Backend response:', backendResponse);
       console.log('Threshold from backend:', backendResponse.threshold);
-      
-      // Use backend response exactly as provided - no frontend logic
+
       setMatchResults(backendResponse);
       setLoading(false);
     } catch (err) {
-      setError(err.message || "Unknown error occurred.");
+      // Show more helpful error for network/CORS/image issues
+      if (err.message && err.message.includes('Failed to fetch')) {
+        setError('Could not reach backend.\nPossible reasons:\n- Backend is sleeping or crashed (Render free tier)\n- CORS error (check backend CORS settings)\n- Image URLs are not public or accessible by backend');
+      } else {
+        setError(err.message || "Unknown error occurred.");
+      }
       setLoading(false);
     }
   };
