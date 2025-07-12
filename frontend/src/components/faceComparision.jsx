@@ -19,7 +19,7 @@ export default function FaceComparisonPage() {
         throw new Error("Please enter at least one valid image URL");
       }
       // Real backend API call
-      const response = await fetch('https://facerecognitionbackend-7ow3.onrender.com/compare', {
+      const response = await fetch('https://priyanshu-6rxg.onrender.com/compare', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
